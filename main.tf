@@ -101,7 +101,7 @@ EOT
 }
 
 data "google_client_config" "default" {}
-
+/**
 provider "kubernetes" {
   alias                  = "in-scope"
   host                   = "https://${module.in_scope_cluster.endpoint}"
@@ -114,7 +114,7 @@ provider "kubernetes" {
   host                   = "https://${module.out_of_scope_cluster.endpoint}"
   token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(module.out_of_scope_cluster.ca_certificate)
-}
+}*/
 
 # resource "google_gke_hub_feature" "acm" {
 #   provider = google-beta
@@ -150,9 +150,9 @@ module "in_scope_cluster" {
   region                 = local.region
   master_ipv4_cidr_block = "10.10.11.0/28"
 
-  providers = {
+ /** providers = {
     kubernetes = kubernetes.in-scope
-  }
+  }*/
 }
 
 module "out_of_scope_cluster" {
@@ -168,9 +168,9 @@ module "out_of_scope_cluster" {
   enable_mesh_feature    = false
   enable_fleet_feature   = false
 
-  providers = {
+ /** providers = {
     kubernetes = kubernetes.out-of-scope
-  }
+  }*/
 
   module_depends_on = [module.in_scope_cluster]
 }
@@ -244,7 +244,7 @@ module "cloud_router" {
 #     domains = [local.domain]
 #   }
 # }
-
+/**
 resource "kubernetes_manifest" "frontend_ingress" {
     provider = kubernetes.in-scope
     manifest = yamldecode(<<EOT
@@ -303,7 +303,7 @@ spec:
     name: "${google_compute_security_policy.security-policy-1.name}"
 EOT
 )
-}
+}*/
 
 resource "google_dns_managed_zone" "frontend" {
   project    = local.project_id
