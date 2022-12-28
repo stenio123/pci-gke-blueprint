@@ -4,9 +4,9 @@ module "project" {
 
   name              = "pci-refresh-test"
   random_project_id = true
-  org_id            = "466277821075"
-  folder_id         = "684073912412"
-  billing_account   = "01C720-F2321D-DCC60D"
+  org_id            = var.org_id
+  folder_id         = var.folder_id
+  billing_account   = var.billing_account
 
   default_service_account = "keep"
 
