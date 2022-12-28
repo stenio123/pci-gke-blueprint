@@ -1,5 +1,6 @@
-
-
+data "google_project" "project" {
+  project_id = var.project_id
+}
 
 module "gke" {
   source                          = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-private-cluster"
@@ -32,7 +33,7 @@ module "gke" {
   ]
 
 }
-
+/**
 module "hub" {
   source = "terraform-google-modules/kubernetes-engine/google//modules/fleet-membership"
 
@@ -99,8 +100,4 @@ resource "google_gke_hub_feature" "mci" {
     }
   }
   provider = google-beta
-}
-
-data "google_project" "project" {
-  project_id = var.project_id
-}
+}*/
