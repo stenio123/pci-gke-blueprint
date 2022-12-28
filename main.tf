@@ -31,7 +31,7 @@ locals {
   out_of_scope_prefix = "out-of-scope"
   region              = "us-central1"
 
-  domain = "pcidemo.gcpsecurity.solutions."
+  domain = var.domain
 
   google_compute_security_policy_sqli_rule_expression_list = <<EOT
     evaluatePreconfiguredExpr('sqli-stable',[

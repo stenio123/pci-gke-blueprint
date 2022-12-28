@@ -12,3 +12,8 @@ variable "billing_account" {
   type = string
   default = ""
 }
+
+variable "domain" {
+  type = string
+  default = ""
+}
