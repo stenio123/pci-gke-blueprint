@@ -1,6 +1,11 @@
 # GKE PCI DSS 4.0 Blueprint
 
 ## Overview
+1. Create a project using project_factory module
+2. Create network, subnets, NAT and router to enable the private cluster to have external access
+3. Create 2 GKE clusters
+4. Enable service mesh
+5. Configure k8s externally
 
 ## How to Deploy
 

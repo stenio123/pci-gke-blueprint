@@ -100,8 +100,10 @@ EOT
     # ]
 }
 
+# google_client_config and kubernetes provider must be explicitly specified like the following.
+# source: https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/latest/submodules/beta-autopilot-private-cluster
 data "google_client_config" "default" {}
-/**
+
 provider "kubernetes" {
   alias                  = "in-scope"
   host                   = "https://${module.in_scope_cluster.endpoint}"
@@ -114,7 +116,7 @@ provider "kubernetes" {
   host                   = "https://${module.out_of_scope_cluster.endpoint}"
   token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(module.out_of_scope_cluster.ca_certificate)
-}*/
+}
 
 # resource "google_gke_hub_feature" "acm" {
 #   provider = google-beta
