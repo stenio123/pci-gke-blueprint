@@ -130,15 +130,15 @@ provider "kubernetes" {
 #   location = "global"
 #   provider = google-beta
 # }
-
+/**
 resource "google_gke_hub_feature" "mcsd" {
   name     = "multiclusterservicediscovery"
   location = "global"
   project  = local.project_id
 
   provider = google-beta
-}
-
+}*/
+/**
 module "in_scope_cluster" {
   source = "./modules/pci-cluster"
 
@@ -152,9 +152,9 @@ module "in_scope_cluster" {
 
  /** providers = {
     kubernetes = kubernetes.in-scope
-  }*/
-}
-
+  }*//**
+}*/
+/**
 module "out_of_scope_cluster" {
   source = "./modules/pci-cluster"
 
@@ -171,9 +171,9 @@ module "out_of_scope_cluster" {
  /** providers = {
     kubernetes = kubernetes.out-of-scope
   }*/
-
+/**
   module_depends_on = [module.in_scope_cluster]
-}
+}*/
 
 module "vpc" {
   source  = "terraform-google-modules/network/google"
