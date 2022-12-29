@@ -1,0 +1,22 @@
+# Deploys the asm cli tool used for the online boutique
+# source: https://cloud.google.com/service-mesh/docs/managed/provision-managed-anthos-service-mesh-asmcli
+
+curl https://storage.googleapis.com/csm-artifacts/asm/asmcli > asmcli
+
+chmod +x asmcli
+
+# Check notes on VPC Service control and other for additional flags
+  ./asmcli install \
+      -p pci-refresh-test-7c56 \
+      -l us-central1 \
+      -n in-scope \
+      --fleet_id pci-refresh-test-7c56 \
+      --managed \
+      --verbose \
+      --output_dir in-scope \
+      --enable-all \
+      --channel stable \
+      --option legacy-default-ingressgateway
+
+# To check
+kubectl describe controlplanerevision asm-managed-stable -n istio-system
