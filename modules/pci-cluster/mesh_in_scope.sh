@@ -54,4 +54,12 @@ kubectl create namespace gateway-namespace
 #kubectl label namespace gateway-namespace istio-injection=enabled istio.io/rev-
 # Using stable as previously defined
 kubectl label namespace gateway-namespace \
-  istio.io/rev=stable --overwrite
+  istio.io/rev=regular --overwrite
+
+for CTX in ${CTX_1} ${CTX_2}
+do
+    kubectl create --context=${CTX} namespace sample
+   kubectl label namespace gateway-namespace \
+  istio.io/rev=rapid --overwrite
+done
+  

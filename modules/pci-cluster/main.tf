@@ -16,6 +16,9 @@ module "gke" {
   create_service_account          = true
   horizontal_pod_autoscaling      = true
   enable_vertical_pod_autoscaling = true
+  #TODO
+  # Double check if this should be false or true
+  # https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters
   enable_private_endpoint         = false
   enable_private_nodes            = true
   master_ipv4_cidr_block          = var.master_ipv4_cidr_block
@@ -24,13 +27,18 @@ module "gke" {
 
   add_cluster_firewall_rules        = true
   add_master_webhook_firewall_rules = true
-
+# TODO review
+# in theory this should only be the two clusters (in scope, out of scope), to leverage the Anthos Service Mesh
+# If not possible by terraform, use cli post fact 
+# https://cloud.google.com/kubernetes-engine/docs/how-to/authorized-networks#add
   master_authorized_networks = [
     {
       cidr_block   = "0.0.0.0/0"
       display_name = "all"
     }
   ]
+  # already default:
+  #master_global_access_enabled     = true
 
 }
 /**

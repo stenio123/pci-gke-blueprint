@@ -102,7 +102,7 @@ EOT
 
 # google_client_config and kubernetes provider must be explicitly specified like the following.
 # source: https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/latest/submodules/beta-autopilot-private-cluster
-data "google_client_config" "default" {}
+/**data "google_client_config" "default" {}
 
 provider "kubernetes" {
   alias                  = "in-scope"
@@ -116,7 +116,7 @@ provider "kubernetes" {
   host                   = "https://${module.out_of_scope_cluster.endpoint}"
   token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(module.out_of_scope_cluster.ca_certificate)
-}
+}*/
 
 # examples from https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/gke_hub_feature
 # resource "google_gke_hub_feature" "acm" {
@@ -133,21 +133,21 @@ provider "kubernetes" {
 #   location = "global"
 #   provider = google-beta
 # }
-
+/**
 resource "google_gke_hub_feature" "mcsd" {
   name     = "multiclusterservicediscovery"
   location = "global"
   project  = local.project_id
 
   provider = google-beta
-}
+}*/
 
 module "in_scope_cluster" {
   source = "./modules/pci-cluster"
 
   prefix                 = local.in_scope_prefix
   project_id             = local.project_id
-  mci                    = true
+  #mci                    = true
   network                = module.vpc.network_name
   subnet                 = module.vpc.subnets_names[0]
   region                 = local.region
@@ -167,9 +167,9 @@ module "out_of_scope_cluster" {
   subnet                 = module.vpc.subnets_names[1]
   region                 = local.region
   master_ipv4_cidr_block = "10.10.12.0/28"
-  mci                    = false
-  enable_mesh_feature    = false
-  enable_fleet_feature   = false
+  #mci                    = false
+  #enable_mesh_feature    = false
+  #enable_fleet_feature   = false
 
  /** providers = {
     kubernetes = kubernetes.out-of-scope
@@ -190,6 +190,7 @@ module "vpc" {
     {
       subnet_name           = "${local.in_scope_prefix}-subnet"
       subnet_ip             = "10.0.4.0/22"
+      # Whether the subnets will have access to Google API's without a public IP
       subnet_private_access = true
       subnet_region         = local.region
     },
@@ -200,7 +201,8 @@ module "vpc" {
       subnet_region         = local.region
     }
   ]
-
+# TODO is this necessary here or could be a k8s config?
+# https://kubernetes.io/blog/2022/05/23/service-ip-dynamic-and-static-allocation/
   secondary_ranges = {
     "${local.in_scope_prefix}-subnet" = [
       {
@@ -225,7 +227,8 @@ module "vpc" {
     ]
   }
 }
-
+# Will allow private subnet to reach outside without external IP
+# TODO verify
 module "cloud_router" {
   source  = "terraform-google-modules/cloud-router/google"
   version = "~> 0.4"

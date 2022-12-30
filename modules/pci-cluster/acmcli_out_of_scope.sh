@@ -9,14 +9,22 @@ chmod +x asmcli
   ./asmcli install \
       -p pci-refresh-test-7c56 \
       -l us-central1 \
-      -n in-scope \
+      -n out-of-scope \
       --fleet_id pci-refresh-test-7c56 \
       --managed \
       --verbose \
-      --output_dir in-scope \
+      --output_dir out-of-scope \
       --enable-all \
-      --channel stable \
+      --channel regular \
       --option legacy-default-ingressgateway
 
 # To check
-kubectl describe controlplanerevision asm-managed-stable -n istio-system
+kubectl describe controlplanerevision asm-managed-regular -n istio-system
+
+./asmcli validate \
+  --project_id pci-refresh-test-7c56 \
+  --cluster_name out-of-scope \
+  --cluster_location us-central1 \
+  --fleet_id pci-refresh-test-7c56
+# TODO Error!
+# asmcli: [ERROR]: Autopilot clusters are only supported with managed control plane.
