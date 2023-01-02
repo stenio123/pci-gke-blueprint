@@ -12,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: networking.gke.io/v1beta1
-kind: ManagedCertificate
+apiVersion: v1
+kind: Namespace
 metadata:
-  name: frontend
-spec:
-  domains:
-    - ${DOMAIN_NAME}
+  name: store-out-of-scope
+  annotations:
+    mesh.cloud.google.com/proxy: '{"managed":"true"}'
+  labels:
+    istio-injection: enabled
+    istio.io/rev: regular

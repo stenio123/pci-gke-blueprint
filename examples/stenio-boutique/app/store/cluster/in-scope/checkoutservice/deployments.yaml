@@ -16,6 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: checkoutservice
+  namespace: checkoutservice
 spec:
   selector:
     matchLabels:
@@ -27,7 +28,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.2.0
+          image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.4.1
           ports:
           - containerPort: 5050
           readinessProbe:

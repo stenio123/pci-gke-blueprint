@@ -17,6 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: emailservice
+  namespace: store-out-of-scope
 spec:
   selector:
     matchLabels:
@@ -29,7 +30,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: gcr.io/google-samples/microservices-demo/emailservice:v0.2.0
+        image: gcr.io/google-samples/microservices-demo/emailservice:v0.4.1
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -52,6 +53,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cartservice
+  namespace: store-out-of-scope
 spec:
   selector:
     matchLabels:
@@ -64,7 +66,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: gcr.io/google-samples/microservices-demo/cartservice:v0.2.0
+        image: gcr.io/google-samples/microservices-demo/cartservice:v0.4.1
         ports:
         - containerPort: 7070
         env:
@@ -95,6 +97,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: recommendationservice
+  namespace: store-out-of-scope
 spec:
   selector:
     matchLabels:
@@ -107,7 +110,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.2.0
+        image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.4.1
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -133,6 +136,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: productcatalogservice
+  namespace: store-out-of-scope
 spec:
   selector:
     matchLabels:
@@ -145,7 +149,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.2.0
+        image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.4.1
         ports:
         - containerPort: 3550
         readinessProbe:
@@ -169,6 +173,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: currencyservice
+  namespace: store-out-of-scope
 spec:
   selector:
     matchLabels:
@@ -181,7 +186,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: gcr.io/google-samples/microservices-demo/currencyservice:v0.2.0
+        image: gcr.io/google-samples/microservices-demo/currencyservice:v0.4.1
         ports:
         - name: grpc
           containerPort: 7000
@@ -206,6 +211,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: shippingservice
+  namespace: store-out-of-scope
 spec:
   selector:
     matchLabels:
@@ -217,7 +223,7 @@ spec:
     spec:
       containers:
       - name: server
-        image: gcr.io/google-samples/microservices-demo/shippingservice:v0.2.0
+        image: gcr.io/google-samples/microservices-demo/shippingservice:v0.4.1
         ports:
         - containerPort: 50051
         readinessProbe:
@@ -242,6 +248,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: adservice
+  namespace: store-out-of-scope
 spec:
   selector:
     matchLabels:
@@ -254,7 +261,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: gcr.io/google-samples/microservices-demo/adservice:v0.2.0
+        image: gcr.io/google-samples/microservices-demo/adservice:v0.4.1
         ports:
         - containerPort: 9555
         env:

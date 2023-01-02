@@ -12,21 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+apiVersion: v1
+kind: Namespace
 metadata:
-  name: frontend
+  name: store-out-of-scope
   annotations:
-    # frontend-ext-ip is the name of the IP address resource created in terraform as
-    # google_compute_global_address.frontend-ext-ip
-    kubernetes.io/ingress.global-static-ip-name: frontend-ext-ip
-    kubernetes.io/ingress.allow-http: "false"
-    networking.gke.io/managed-certificates: frontend
-spec:
-  rules:
-  - http:
-      paths:
-        - path: "/*"
-          backend:
-            serviceName: frontend
-            servicePort: 80
+    mesh.cloud.google.com/proxy: '{"managed":"true"}'
+  labels:
+    istio-injection: enabled
+    istio.io/rev: regular

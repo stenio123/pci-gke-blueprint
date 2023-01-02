@@ -1,4 +1,4 @@
-# Copyright 2018 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,49 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: emailservice
+  name: adservice
+  namespace: store-out-of-scope
 spec:
   type: ClusterIP
   selector:
-    app: emailservice
+    app: adservice
   ports:
   - name: grpc
-    port: 5000
-    targetPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: recommendationservice
-spec:
-  type: ClusterIP
-  selector:
-    app: recommendationservice
-  ports:
-  - name: grpc
-    port: 8080
-    targetPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: productcatalogservice
-spec:
-  type: ClusterIP
-  selector:
-    app: productcatalogservice
-  ports:
-  - name: grpc
-    port: 3550
-    targetPort: 3550
+    port: 9555
+    targetPort: 9555
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: cartservice
+  namespace: store-out-of-scope
 spec:
   type: ClusterIP
   selector:
@@ -67,6 +44,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: currencyservice
+  namespace: store-out-of-scope
 spec:
   type: ClusterIP
   selector:
@@ -79,20 +57,50 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: shippingservice
+  name: emailservice
+  namespace: store-out-of-scope
 spec:
   type: ClusterIP
   selector:
-    app: shippingservice
+    app: emailservice
   ports:
   - name: grpc
-    port: 50051
-    targetPort: 50051
+    port: 5000
+    targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: productcatalogservice
+  namespace: store-out-of-scope
+spec:
+  type: ClusterIP
+  selector:
+    app: productcatalogservice
+  ports:
+  - name: grpc
+    port: 3550
+    targetPort: 3550
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendationservice
+  namespace: store-out-of-scope
+spec:
+  type: ClusterIP
+  selector:
+    app: recommendationservice
+  ports:
+  - name: grpc
+    port: 8080
+    targetPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: redis-cart
+  namespace: store-out-of-scope
 spec:
   type: ClusterIP
   selector:
@@ -105,12 +113,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: adservice
+  name: shippingservice
+  namespace: store-out-of-scope
 spec:
   type: ClusterIP
   selector:
-    app: adservice
+    app: shippingservice
   ports:
   - name: grpc
-    port: 9555
-    targetPort: 9555
+    port: 50051
+    targetPort: 50051
